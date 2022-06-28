@@ -24,7 +24,7 @@ function Stories() {
   return (
     <section
       aria-label="추천 회원 목록"
-      className="mt-8 flex space-x-4 overflow-x-scroll rounded-sm border border-gray-200 bg-white p-6 shadow-md scrollbar-thin scrollbar-thumb-gray-100 hover:scrollbar-thumb-gray-800 "
+      className="scrollb mt-8 flex space-x-4 overflow-x-scroll rounded-sm border border-gray-200 bg-white p-6 shadow-md scrollbar-thin scrollbar-thumb-gray-100  hover:scrollbar-thumb-gray-800 "
     >
       {suggestions.map((item) => (
         <Story key={item.id} image={item.image} name={item.name} />

@@ -6,6 +6,7 @@ const nextConfig = {
       'links.papareact.com',
       'cloudflare-ipfs.com',
       'placeimg.com',
+      'loremflickr.com',
       'w.namu.la',
       'lh3.googleusercontent.com',
       'firebasestorage.googleapis.com',
