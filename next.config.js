@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: [
       'links.papareact.com',
+      'cloudflare-ipfs.com',
       'placeimg.com',
       'w.namu.la',
       'lh3.googleusercontent.com',
