@@ -6,19 +6,19 @@ function Header() {
     <header className="sticky top-0 z-50 bg-white">
       <div className=" flex h-16 max-w-6xl items-center justify-between px-2 shadow-sm lg:mx-auto">
         {/* left */}
-        <section>
+        <section aria-label="로고">
           <figure className="relative hidden h-10 w-24 cursor-pointer md:inline-block">
             <Image
-              src={'https://links.papareact.com/ocw'}
+              src="/assets/Instagram_logo.png"
               objectFit="contain"
               layout="fill"
               alt="Logo Image"
-              loading="lazy"
+              priority
             />
           </figure>
           <figure className="relative h-10 w-10 flex-shrink-0 cursor-pointer md:hidden">
             <Image
-              src="https://links.papareact.com/jjm"
+              src="/assets/insta-logo.png"
               layout="fill"
               objectFit="contain"
               alt="Logo-small"

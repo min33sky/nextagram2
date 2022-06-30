@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { faker } from '@faker-js/faker';
 import Story from './Story';
 
-type Suggestion = {
+export type Suggestion = {
   id: number;
   name: string;
   image: string;
+  company?: string;
 };
 
 function Stories() {

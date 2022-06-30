@@ -1,6 +1,8 @@
 import React from 'react';
+import MiniProfile from './MiniProfile';
 import Posts from './Posts';
 import Stories from './Stories';
+import Suggestions from './Suggestions';
 
 function Feed() {
   return (
@@ -12,7 +14,10 @@ function Feed() {
       </section>
 
       {/* 미니 프로필과 추천목록 (큰 화면에서만 보임) */}
-      <aside></aside>
+      <aside className="hidden xl:block">
+        <MiniProfile />
+        <Suggestions />
+      </aside>
     </main>
   );
 }
