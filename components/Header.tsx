@@ -1,7 +1,19 @@
 import Image from 'next/image';
-import { HomeIcon, MenuIcon, SearchIcon } from '@heroicons/react/solid';
+import { MenuIcon, SearchIcon } from '@heroicons/react/solid';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import {
+  HeartIcon,
+  HomeIcon,
+  PaperAirplaneIcon,
+  PlusCircleIcon,
+  UserGroupIcon,
+} from '@heroicons/react/outline';
 
 function Header() {
+  const { data: session } = useSession();
+
+  console.log('session: ', session);
+
   return (
     <header className="sticky top-0 z-50 bg-white">
       <div className=" flex h-16 max-w-6xl items-center justify-between px-2 shadow-sm lg:mx-auto">
@@ -40,9 +52,44 @@ function Header() {
         </section>
 
         {/* right */}
-        <nav className="flex items-center justify-between">
+        <nav className="flex items-center justify-between space-x-4">
           <HomeIcon className="navBtn" />
           <MenuIcon className="h-8 cursor-pointer md:hidden" />
+
+          {session ? (
+            <>
+              <div className="navBtn relative">
+                <PaperAirplaneIcon className="navBtn rotate-45" />
+                <div
+                  className="absolute -top-1 -right-2 grid h-5 w-5 animate-pulse
+                  place-items-center rounded-full bg-red-500  text-xs text-white
+                "
+                >
+                  3
+                </div>
+              </div>
+              <PlusCircleIcon className="navBtn" />
+              <UserGroupIcon className="navBtn" />
+              <HeartIcon className="navBtn" />
+
+              <figure className="relative h-10 w-10 cursor-pointer overflow-hidden rounded-full transition hover:scale-125">
+                <Image
+                  aria-label="로그아웃 버튼"
+                  src={session.user?.image as string}
+                  onClick={() => signOut()}
+                  objectFit="cover"
+                  layout="fill"
+                  alt="avatar image"
+                />
+              </figure>
+            </>
+          ) : (
+            <>
+              <button onClick={() => signIn()} className="">
+                Sign In
+              </button>
+            </>
+          )}
         </nav>
       </div>
     </header>

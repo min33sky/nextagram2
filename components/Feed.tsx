@@ -15,8 +15,10 @@ function Feed() {
 
       {/* 미니 프로필과 추천목록 (큰 화면에서만 보임) */}
       <aside className="hidden xl:block">
-        <MiniProfile />
-        <Suggestions />
+        <div className="sticky top-16 z-50">
+          <MiniProfile />
+          <Suggestions />
+        </div>
       </aside>
     </main>
   );

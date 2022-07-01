@@ -30,18 +30,18 @@ function Suggestions() {
             key={suggestion.id}
             className="mt-3 flex items-center justify-between"
           >
-            <figure className="relative h-14 w-14 overflow-hidden rounded-full">
+            <figure className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full">
               <Image
                 src={suggestion.image}
                 layout="fill"
-                objectFit="contain"
+                objectFit="cover"
                 alt="avatar image"
               />
             </figure>
 
             <div className="ml-4 flex-1">
               <h2 className="text-sm font-semibold">{suggestion.name}</h2>
-              <h3 className="truncate text-xs text-gray-400">
+              <h3 className="text-xs text-gray-400">
                 Works at {suggestion.company}
               </h3>
             </div>
