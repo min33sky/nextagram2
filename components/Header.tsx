@@ -8,11 +8,12 @@ import {
   PlusCircleIcon,
   UserGroupIcon,
 } from '@heroicons/react/outline';
+import { useSetRecoilState } from 'recoil';
+import { modalState } from '../store/modalAtom';
 
 function Header() {
   const { data: session } = useSession();
-
-  console.log('session: ', session);
+  const setShowModal = useSetRecoilState(modalState);
 
   return (
     <header className="sticky top-0 z-50 bg-white">
@@ -68,7 +69,11 @@ function Header() {
                   3
                 </div>
               </div>
-              <PlusCircleIcon className="navBtn" />
+              <PlusCircleIcon
+                aria-label="이미지 업로드 버튼"
+                onClick={() => setShowModal((prev) => !prev)}
+                className="navBtn"
+              />
               <UserGroupIcon className="navBtn" />
               <HeartIcon className="navBtn" />
 
