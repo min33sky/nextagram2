@@ -1905,9 +1905,9 @@
   "version" "1.4.0"
 
 "next-auth@^4.7.0":
-  "integrity" "sha512-boXSIzHvCyNq1Jthi24LLnx12iKBsqsMxUKm5qq9alkfhVMeIRUR/wKP0FPSGc1s9WcGXMS3NmKQfADCEb0wow=="
-  "resolved" "https://registry.npmjs.org/next-auth/-/next-auth-4.7.0.tgz"
-  "version" "4.7.0"
+  "integrity" "sha512-7vN7akNsAEqV8w1cqZf71UFYw18zy/N5y3xEQz2k3Rju34n7z3+cwdNjGS0FVCoKi/s1wiN27z9ruwlOwiQNsg=="
+  "resolved" "https://registry.npmjs.org/next-auth/-/next-auth-4.8.0.tgz"
+  "version" "4.8.0"
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@panva/hkdf" "^1.0.1"
@@ -2300,9 +2300,9 @@
     "scheduler" "^0.23.0"
 
 "react-hook-form@^7.33.0":
-  "integrity" "sha512-h8XoeUHQs1Snx1s/sSvM+eVTSKkWQt8TcrbL+3/Rt5gugxpy4ueL5ZZkubffyNpUyyTz0qM0kwOi2c+JgGTjLA=="
-  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.33.0.tgz"
-  "version" "7.33.0"
+  "integrity" "sha512-ydTfTxEJdvgjCZBj5DDXRc58oTEfnFupEwwTAQ9FSKzykEJkX+3CiAkGtAMiZG7IPWHuzgT6AOBfogiKhUvKgg=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.33.1.tgz"
+  "version" "7.33.1"
 
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
