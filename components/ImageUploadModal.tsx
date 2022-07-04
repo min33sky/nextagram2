@@ -1,5 +1,16 @@
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { db, storage } from '../firebase';
 
 type FormData = {
   content: string;
@@ -11,9 +22,11 @@ type FormData = {
  * @returns
  */
 function ImageUploadModal({ closeModal }: { closeModal: () => void }) {
+  const { data: session } = useSession();
   const [uploadImage, setUploadImage] = useState<File | null>(null);
   const [thumbnailImage, setThumbnailImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const {
     setValue,
     register,
@@ -22,8 +35,55 @@ function ImageUploadModal({ closeModal }: { closeModal: () => void }) {
     watch,
   } = useForm<FormData>();
 
-  const onValid: SubmitHandler<FormData> = ({ content }) => {
-    console.log('내용: ', content);
+  const onValid: SubmitHandler<FormData> = async ({ content }) => {
+    if (loading) return;
+    if (!content || content.trim() === '') return;
+    if (!uploadImage) return;
+
+    setLoading(true);
+    /**
+     ** 1) DB에 'posts' collection을 생성하고 document를 추가한다.
+     ** 2) 생성한 document의 reference로부터 id 값을 가져온다.
+     ** 3) Storage에 이미지를 업로드 할 때 id값을 경로로 사용한다.
+     ** 4) 이미지의 downloadUrl을 가져와서 기존 document를 update한다.
+     */
+
+    const docRef = await addDoc(collection(db, 'posts'), {
+      username: session?.user.username,
+      caption: content,
+      profileImg: session?.user.image,
+      timestamp: serverTimestamp(),
+    });
+
+    // 이미지 업로드
+    const imageRef = ref(
+      storage,
+      `posts/${docRef.id}/image/${uploadImage?.name}`
+    );
+
+    const uploadTask = uploadBytesResumable(imageRef, uploadImage);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (err) => console.log(err),
+      async () => {
+        const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+
+        await updateDoc(doc(db, 'posts', docRef.id), {
+          image: downloadUrl,
+        });
+
+        setLoading(false);
+        closeModal();
+        toast.success('Upload Success...🚀');
+      }
+    );
   };
 
   /**
@@ -89,7 +149,7 @@ function ImageUploadModal({ closeModal }: { closeModal: () => void }) {
               role={'img'}
               className={`relative h-[400px] w-full cursor-pointer bg-contain bg-center bg-no-repeat text-3xl
               before:absolute before:grid before:h-full before:w-full before:place-items-center before:font-bold before:text-transparent
-              before:text-white before:transition-all before:content-['Delete'] before:hover:text-white before:hover:backdrop-brightness-50 `}
+              before:transition-all before:content-['Delete'] before:hover:text-white before:hover:backdrop-brightness-50 before:hover:delay-200 `}
               style={{
                 backgroundImage: `url(${thumbnailImage})`,
               }}
@@ -134,14 +194,18 @@ function ImageUploadModal({ closeModal }: { closeModal: () => void }) {
         )}
 
         <textarea
-          {...register('content')}
+          {...register('content', { required: true })}
           className="w-full resize-none rounded-lg border border-slate-300"
+          placeholder="describe your image"
         />
 
         <button
           aria-label="업로드 버튼"
           type="submit"
-          className="w-full rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+          className="w-full rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white
+            hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:cursor-not-allowed disabled:from-gray-600 disabled:to-gray-500
+          disabled:text-white dark:focus:ring-blue-800"
+          disabled={!uploadImage}
         >
           <svg
             role="status"

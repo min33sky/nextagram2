@@ -9,16 +9,16 @@ import { getStorage } from 'firebase/storage';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
+  authDomain: 'nextagram-v2.firebaseapp.com',
+  projectId: 'nextagram-v2',
+  storageBucket: 'nextagram-v2.appspot.com',
+  messagingSenderId: '595307810280',
+  appId: '1:595307810280:web:0526966254c63766d1e85d',
 };
 
 // Initialize Firebase
 const app = getApps.length === 0 ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore();
-const storage = getStorage();
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 export { app, db, storage };
