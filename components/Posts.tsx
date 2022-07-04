@@ -1,5 +1,14 @@
 import { faker } from '@faker-js/faker';
+import {
+  collection,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  startAfter,
+} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { db } from '../firebase';
 import Post from './Post';
 
 export interface IPost {
@@ -24,6 +33,28 @@ function Posts() {
 
     setPostDatas(fakerData);
   }, []);
+
+  const [posts, setPosts] = useState<any>([]);
+
+  useEffect(() => {
+    const queryOptions = [
+      orderBy('timestamp', 'desc'),
+      startAfter('u2M145NnUjJ6PASD6iZ9'),
+      limit(100),
+    ];
+
+    const unSubscirbed = onSnapshot(
+      query(collection(db, 'posts'), ...queryOptions),
+      (snapshot) => {
+        setPosts(snapshot.docs);
+        console.log(snapshot.docs[1].id);
+      }
+    );
+
+    return unSubscirbed;
+  }, []);
+
+  console.log('포스트: ', posts);
 
   return (
     <ul>
