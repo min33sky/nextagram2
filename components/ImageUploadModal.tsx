@@ -52,7 +52,7 @@ function ImageUploadModal({ closeModal }: { closeModal: () => void }) {
       username: session?.user.username,
       caption: content,
       profileImg: session?.user.image,
-      timestamp: serverTimestamp(),
+      createdAt: serverTimestamp(),
     });
 
     // 이미지 업로드

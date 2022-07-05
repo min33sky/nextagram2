@@ -15,7 +15,13 @@ type Formdata = {
   comment: string;
 };
 
-export default function Post({ caption, img, userImg, username }: IPost) {
+export default function Post({
+  id,
+  caption,
+  image,
+  profileImg,
+  username,
+}: IPost) {
   const {
     register,
     handleSubmit,
@@ -37,7 +43,7 @@ export default function Post({ caption, img, userImg, username }: IPost) {
       <header aria-label="게시물 헤더" className="flex items-center p-5">
         <figure className="relative mr-3 h-12 w-12 rounded-full ">
           <Image
-            src={userImg}
+            src={profileImg}
             layout="fill"
             className="rounded-full"
             alt="avatar_image"
@@ -52,7 +58,7 @@ export default function Post({ caption, img, userImg, username }: IPost) {
         className="relative h-[480px] before:absolute before:inset-0 before:animate-[pulse_3s_ease-in-out_infinite] before:bg-gray-300 before:content-['']"
       >
         <Image
-          src={img}
+          src={image}
           layout="fill"
           objectFit="cover"
           alt="Post_Image"
@@ -88,7 +94,7 @@ export default function Post({ caption, img, userImg, username }: IPost) {
               <article className="mb-3 flex items-center space-x-2">
                 <figure className="relative h-8 w-8">
                   <Image
-                    src={userImg}
+                    src={profileImg}
                     className="rounded-full"
                     objectFit="contain"
                     alt="avatar_image"
