@@ -18,7 +18,7 @@ import { db } from '../firebase';
 import Post from './Post';
 
 export interface IPost {
-  id: string | number; //* 게시물의 ID
+  id: string; //* 게시물의 ID
   username: string;
   profileImg: string;
   image: string;
@@ -104,7 +104,6 @@ function Posts() {
 
   return (
     <ul>
-      <button onClick={fetchMore}>더 가져오기</button>
       {postDatas.length > 0 &&
         postDatas.map((item) => (
           <li key={item.id}>
@@ -118,6 +117,7 @@ function Posts() {
             />
           </li>
         ))}
+      <button onClick={fetchMore}>더 가져오기</button>
     </ul>
   );
 }
