@@ -159,7 +159,7 @@ export default function Post({
           layout="fill"
           objectFit="cover"
           alt="Post_Image"
-          loading="lazy"
+          priority={true}
         />
       </figure>
 
@@ -183,7 +183,7 @@ export default function Post({
       {/* 캡션 */}
       <section className="truncate p-5">
         <p className="mb-1 -mt-3 font-bold">
-          좋아요 {Number(1557).toLocaleString()}개
+          좋아요 {likes.length.toLocaleString()}개
         </p>
         <span className="mr-1 font-bold">{username}</span>
         {caption}
